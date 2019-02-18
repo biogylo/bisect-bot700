@@ -29,9 +29,6 @@ fprintf('\t|Xaproxim')
 fprintf('\t|Prueba\t')
 fprintf('\t|Error Apr')
 
-
-
-
 for i = 1:(maxi)
 	xpast = xaprox;
 	xaprox = (xinf+xsup)/2; %agrega la nueva aproximacion al vector
@@ -47,7 +44,6 @@ for i = 1:(maxi)
     else
         fprintf('\t|\t')
     end
-    
 	if (signo < 0)
 		xsup = xaprox; 	
 	elseif (signo > 0)
@@ -55,12 +51,7 @@ for i = 1:(maxi)
 	else
 		fprintf('MILAGRO');
     end
-	
 	if (eaprox < tol)
 		break;
 	end
 end
-
-fprintf('\n\n%f\n',((667.38/xaprox)*(1-exp(-0.146843*xaprox))-40))
-
-
