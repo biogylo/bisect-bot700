@@ -2,10 +2,11 @@
 %Practica 2 - Ejercicio 2
 %Navarro Rodriguez Juan Francisco
 %Bisect bot 700
-%Este programa aproxima sumatoria de 0 a infinito de a^n para |a| < 1
-clc;clear;aprox = 0;
+%Este programa aproxima por el metodo de biseccion
+%a la raiz de la funcion 186*exp(-0.75*x)*sin(2.4*x))
+clc;clear;
 %Constantes
-maxi = inf; %numero maximo de iteraciones
+maxi = inf; %numero maximo de iteraciones (sin limite)
 cifras = 6; %cantidad de cifras minimas de la aproximacion
 
 xinf = 1; % x l inicial
@@ -17,7 +18,7 @@ eaprox = [];
 tol = 0.5*power(10,2-cifras); %la tolerancia, cifras minimas para acabar
 
 fprintf('\n\nBisect bot 701\n\tEste programa aproxima de forma numerica ');
-fprintf('\n\tpor el metodo de biseccion, los ceros de');
+fprintf('\n\tpor el metodo de biseccion, las raices de');
 fprintf('\n\tfuncion f(x) = (186*exp(-0.75*x)*sin(2.4*x)).');
 fprintf('\n\nAproximacion');
 fprintf('\nSe espera una aproximacion a %d cifras significativas',cifras);
@@ -32,7 +33,7 @@ fprintf('\t|Error Apr')
 
 %grafica
 
-res = 10; %resolucion
+res = 50; %resolucion
 stepsize = (xsup-xinf)/res;
 xvector = xinf:stepsize:xsup;
 yvector = 186*exp(-0.75*xvector).*sin(2.4*xvector);
@@ -43,20 +44,16 @@ ylabel('Valor de la funcion');
 title('Grafica de la funcion');
 grid on;
 
-%con base en la grafica, se que la segunda raiz esta entre 2 y 3
-xinf = 2;
-xsup = 3;
-i = 0;
+%con base en la grafica, me di cuenta 
+%que la segunda raiz esta entre 2 y 3
+xinf = 2;xsup = 3;i = 0;
+
 while true
-    i = i+1;
+  i = i+1;
 	xpast = xaprox;
 	xaprox = (xinf+xsup)/2; %agrega la nueva aproximacion al vector
 	signo = (186*exp(-0.75*xinf)*sin(2.4*xinf))*(186*exp(-0.75*xaprox)*sin(2.4*xaprox)); %evaluacion de subintervalo
-    fprintf('\n%d',i)
-    fprintf('\t|%f',xinf)
-    fprintf('\t|%f',xsup)
-    fprintf('\t|%f',xaprox)
-    fprintf('\t|%f',signo)
+    fprintf('\n%d\t|%f\t|%f\t|%f\t|%f',i,xinf,xsup,xaprox,signo)
     if (i ~= 1)
 		eaprox = (abs((xaprox - xpast)/xaprox))*100;
         fprintf('\t|%f',eaprox)
@@ -68,12 +65,8 @@ while true
 		xsup = xaprox; 	
 	elseif (signo > 0)
 		xinf = xaprox;
-	else
-		fprintf('MILAGRO');
-    end
-	
+	end
 	if (eaprox < tol)
 		break;
 	end
 end
-
